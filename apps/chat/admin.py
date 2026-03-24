@@ -1,0 +1,10 @@
+from django.contrib import admin
+from .models import Message
+
+@admin.register(Message)
+class MessageAdmin(admin.ModelAdmin):
+    list_display = ("sender", "trip", "content", "timestamp")
+    search_fields = ("sender__username", "content")
+    list_filter = ("timestamp",)
+    ordering = ("-timestamp",)
+# Register your models here.

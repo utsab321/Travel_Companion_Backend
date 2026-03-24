@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}Travel Buddies - Matches{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+  <h1 class="mb-4">Potential Travel Buddies</h1>
+  
+  {% if matches %}
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+      {% for match in matches %}
+        <div class="col">
+          <div class="card h-100 shadow-sm">
+            {% if match.profile.profile_picture %}
+              <img src="{{ match.profile.profile_picture.url }}" 
+                   class="card-img-top" alt="{{ match.user.username }}" 
+                   style="height: 180px; object-fit: cover;">
+            {% else %}
+              <div class="card-img-top bg-light d-flex align-items-center justify-content-center" 
+                   style="height: 180px;">
+                <i class="bi bi-person-circle fs-1 text-muted"></i>
+              </div>
+            {% endif %}
+            
+            <div class="card-body">
+              <h5 class="card-title">
+                {{ match.user.get_full_name|default:match.user.username }}
+              </h5>
+              <h6 class="card-subtitle mb-2 text-muted">
+                {{ match.profile.location|default:"Somewhere" }}
+              </h6>
+              
+              <div class="mb-3">
+                <span class="badge bg-primary me-1">{{ match.profile.travel_style|title }}</span>
+                <span class="badge bg-secondary me-1">{{ match.profile.pace|title|default:"—" }}</span>
+                <span class="badge bg-info">{{ match.profile.accommodation_preference|title|default:"—" }}</span>
+              </div>
+              
+              <p class="card-text small">
+                {{ match.profile.bio|truncatewords:25|default:"No bio yet." }}
+              </p>
+              
+              <div class="d-flex justify-content-between align-items-center">
+                <div>
+                  <strong>Match:</strong> {{ match.similarity }}%
+                </div>
+                <a href="{% url 'profile' username=match.user.username %}" 
+                   class="btn btn-sm btn-outline-primary">
+                  View Profile
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    
+    <div class="alert alert-info mt-4">
+      <strong>Found {{ match_count }} potential travel companions</strong><br>
+      Showing best matches ≥ {{ your_profile.min_similarity|default:"58" }}% similarity
+    </div>
+    
+  {% else %}
+    <div class="alert alert-warning text-center py-5">
+      <h4>No matches found yet</h4>
+      <p>Try updating your profile preferences to find better matches!</p>
+      <a href="{% url 'profile_update' %}" class="btn btn-primary">Update Profile</a>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

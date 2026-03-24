@@ -1,0 +1,10 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+<h2>Welcome to Travel Companion Admin</h2>
+<p>Quick Links:</p>
+<ul>
+  <li><a href="{% url 'admin:auth_user_changelist' %}">Users</a></li>
+  <li><a href="{% url 'admin:yourmodel_changelist' %}">Your Models</a></li>
+</ul>
+{% endblock %}

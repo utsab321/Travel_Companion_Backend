@@ -1,0 +1,44 @@
+# Django
+*.pyc
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+db.sqlite3
+db.sqlite3-journal
+media/
+
+# Static files - NEVER commit collected static
+staticfiles/
+static/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Virtual environment
+venv/
+ENV/
+env/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Deployment temp
+gunicorn.ctl
+*.pid
+*.sock
