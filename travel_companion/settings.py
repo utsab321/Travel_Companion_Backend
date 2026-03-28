@@ -31,6 +31,26 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",   # React
     "http://127.0.0.1:3000",
 ]
+CORS_ALLOW_CREDENTIALS = True
+SESSION_COOKIE_SAMESITE = 'None'
+CSRF_COOKIE_SAMESITE = 'None'
+SESSION_COOKIE_SECURE = False   # Set to True only in production with HTTPS
+CSRF_COOKIE_SECURE = False
+CORS_ALLOW_METHODS = [
+    'GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'
+]
+
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+]
 
 
 # Application definition
@@ -55,6 +75,7 @@ INSTALLED_APPS = [
     'apps.trips',
     'apps.chat',
     'apps.expenses',
+    'apps.kyc',
     'apps.users.apps.UsersConfig',
 
 

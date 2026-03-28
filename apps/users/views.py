@@ -6,15 +6,29 @@ from apps.users.models import UserProfile
 from apps.users.utils import find_similar_users
 from django.views.decorators.csrf import csrf_exempt
 from .models import UserLoginHistory,User
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+
 
 import json
 
 
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_current_user(request):
+    user = request.user
+    return Response({
+        "id": user.id,
+        "username": user.username,
+        "email": user.email,
+    })
 @login_required
 def profile_view(request, username):
     profile= get_object_or_404(UserProfile, user__username= username)
     return render(request, 'users/profile.html',{'profile' : profile})
-# Create your views here.
+# Create your views here.   
 @login_required
 def match_travel_buddies(request):
     profile = request.user.userprofile

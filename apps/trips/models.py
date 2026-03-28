@@ -16,6 +16,7 @@ class Destination(models.Model):
     description = models.TextField()
     location = models.CharField(max_length=100)
     city = models.ForeignKey(City, on_delete=models.CASCADE, related_name='destinations')
+    
 
     def __str__(self):
         return self.name

@@ -1,10 +1,26 @@
 from django.shortcuts import render ,get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
+from rest_framework.viewsets import ModelViewSet
+from rest_framework.permissions import IsAuthenticated
+
 from .models import Expenses
+from .serializers import ExpenseSerializer
 from trips.models import Trip
 from django.contrib import messages
 from .forms import ExpenseForm
 
+
+class ExpenseViewSet(ModelViewSet):
+    serializer_class = ExpenseSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        # 🔒 Only return logged-in user's expenses
+        return Expenses.objects.filter(paid_by=self.request.user.userprofile)
+
+    def perform_create(self, serializer):
+        # 🔥 Auto assign logged-in user
+        serializer.save(paid_by=self.request.user.userprofile)
 
 # Create your views here.
 @login_required

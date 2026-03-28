@@ -13,8 +13,8 @@ class ItineraryItemAdmin(admin.ModelAdmin):
 
 @admin.register(Destination)
 class DestinationAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'country', 'city')
-    list_filter = ('city', 'country')
+    list_display = ('id', 'name', 'city', 'location')
+    list_filter = ('city',)
     search_fields = ('name', 'city__name')
 
 @admin.register(Trip)

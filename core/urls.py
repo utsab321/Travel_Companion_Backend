@@ -1,8 +1,7 @@
-from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
+from .views import create_destination, city_list
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('travel_core.urls')),
+    path('destinations/', create_destination),
+    path('cities/', city_list),
 ]
-
